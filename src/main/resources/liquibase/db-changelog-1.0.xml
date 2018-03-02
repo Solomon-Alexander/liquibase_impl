@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Create a changeset for a new DB table... -->
+    <changeSet id="1" author="SOLOMON ALEXANDER">
+		<createTable remarks="Employee Table to hold Liquibase Employee Data" tableName="LIQUIBASE_EMPLOYEE_TEST">
+        	<column name="ID" type="NUMBER(10,0)"  >
+        	    <constraints primaryKey="true" nullable="false" primaryKeyName="ID"/>
+        	</column>
+        	<column name="FIRST_NAME" type="VARCHAR(255)"/>
+        	<column name="LAST_NAME" type="VARCHAR(255)"/>
+        	<column name="ADDRESS" type="VARCHAR(255)"/>
+        	<column name="PHONE" type="NUMBER(15,0)"/>
+        	<column name="EMAIL" type="VARCHAR(255)"/>
+    	</createTable>
+    </changeSet>
+     <changeSet id="2" author="SOLOMON ALEXANDER">
+    	<addColumn
+            tableName="LIQUIBASE_EMPLOYEE_TEST">
+        <column name="ACTIVE" type="NUMBER(1,0)"/>
+    	</addColumn>
+    	<rollback>
+    	     <dropColumn tableName="LIQUIBASE_EMPLOYEE_TEST" columnName="ACTIVE"/>
+    	</rollback>
+	</changeSet>
+	<changeSet id="3" author="SOLOMON ALEXANDER">
+    	<insert 
+            tableName="LIQUIBASE_EMPLOYEE_TEST">
+            
+        	<column name="ID">1</column>
+        	<column name="FIRST_NAME">KEN</column>
+        	<column name="LAST_NAME">SCOTT</column>
+        	<column name="ADDRESS">550 CITY ROAD, MELBOURNE, VIC 3000</column>
+        	<column name="PHONE">0416172816</column>
+        	<column name="EMAIL">KEN_SCOTT@DIALOG.COM.AU</column>
+        	<column name="ACTIVE">1</column>
+    	</insert>
+    	<rollback>
+    	     <delete 
+            tableName="LIQUIBASE_EMPLOYEE_TEST">
+        		<where>ID = 1</where>
+    		</delete>
+    	</rollback>
+	</changeSet>
+	
+</databaseChangeLog>
